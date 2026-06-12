@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chhavi Singh — Data & Research Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:      #0D1B2A;
+      --slate:     #1C2E42;
+      --steel:     #2E4A63;
+      --ice:       #C8D8E8;
+      --gold:      #C4974A;
+      --green:     #2D7A4F;
+      --green-lt:  #3DAA6E;
+      --offwhite:  #F5F7FA;
+      --muted:     #7A93A8;
+      --text:      #1A2A38;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--offwhite); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(13,27,42,0.97);
+      backdrop-filter: blur(10px);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 6%; z-index: 100;
+      border-bottom: 1px solid rgba(196,151,74,0.2);
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; color: var(--gold); font-size: 1.2rem; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--ice); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      background: var(--navy); min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 6% 5rem; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 550px; height: 550px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,122,79,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .hero-leaf { position: absolute; right: 6%; top: 50%; transform: translateY(-50%); opacity: 0.06; pointer-events: none; }
+    .hero-leaf svg { width: 320px; height: 320px; }
+    .hero-inner { max-width: 900px; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--green-lt);
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--green-lt); }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 6vw, 5.5rem); color: #fff; line-height: 1.05; margin-bottom: 1.5rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub { font-size: 1.05rem; color: var(--ice); max-width: 560px; opacity: 0.85; line-height: 1.8; margin-bottom: 2.5rem; }
+    .hero-badges { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-badge {
+      background: rgba(45,122,79,0.18); border: 1px solid rgba(61,170,110,0.35);
+      color: var(--green-lt); padding: 0.3rem 0.85rem; border-radius: 99px;
+      font-size: 0.75rem; font-weight: 500; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+    .btn-primary { background: var(--gold); color: var(--navy); padding: 0.75rem 1.8rem; border-radius: 3px; font-weight: 600; font-size: 0.875rem; text-decoration: none; letter-spacing: 0.04em; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-outline { border: 1px solid rgba(200,216,232,0.35); color: var(--ice); padding: 0.75rem 1.8rem; border-radius: 3px; font-weight: 500; font-size: 0.875rem; text-decoration: none; letter-spacing: 0.04em; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+    .hero-stats { display: flex; gap: 3rem; border-top: 1px solid rgba(200,216,232,0.12); padding-top: 2.5rem; }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: var(--gold); display: block; }
+    .stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* SECTIONS */
+    section { padding: 6rem 6%; }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--green-lt); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); color: var(--navy); margin-bottom: 1rem; }
+    .section-desc { color: #4A6680; max-width: 580px; line-height: 1.8; margin-bottom: 3rem; }
+
+    /* ABOUT */
+    #about { background: #fff; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { color: #4A6680; line-height: 1.85; margin-bottom: 1rem; font-size: 0.95rem; }
+
+    /* SKILLS - categorised */
+    .skills-section { }
+    .skills-category { margin-bottom: 1.5rem; }
+    .skills-category-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+      color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skills-category-label::after { content: ''; flex: 1; height: 1px; background: rgba(196,151,74,0.2); }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .skill-tag {
+      background: var(--offwhite); border: 1px solid var(--ice);
+      border-left: 3px solid var(--gold); padding: 0.5rem 0.85rem;
+      font-size: 0.82rem; font-weight: 500; color: var(--slate);
+      border-radius: 2px; transition: border-left-color 0.2s;
+    }
+    .skill-tag:hover { border-left-color: var(--green); }
+    .skill-tag.green { border-left-color: var(--green); }
+
+    /* PROJECTS */
+    #projects { background: var(--offwhite); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .featured-card { grid-column: 1 / -1; }
+    .project-card {
+      background: #fff; border: 1px solid var(--ice); border-radius: 6px;
+      padding: 2rem; transition: box-shadow 0.25s, transform 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .project-card:hover { box-shadow: 0 10px 36px rgba(13,27,42,0.1); transform: translateY(-3px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-num {
+      font-family: 'DM Serif Display', serif; font-size: 2.5rem;
+      color: rgba(196,151,74,0.15); position: absolute; top: 1rem; right: 1.5rem;
+      line-height: 1; pointer-events: none;
+    }
+    .project-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
+    .project-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 99px; font-weight: 500; }
+    .badge-fullstack { background: rgba(13,27,42,0.07); color: var(--slate); }
+    .badge-data { background: rgba(45,122,79,0.1); color: var(--green); }
+    .badge-policy { background: rgba(196,151,74,0.12); color: #8a6020; }
+    .project-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .project-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 0.7rem; }
+    .project-card > p, .project-card .proj-desc { font-size: 0.875rem; color: #4A6680; line-height: 1.75; margin-bottom: 1.2rem; }
+    .project-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tool-pill { background: var(--offwhite); border: 1px solid var(--ice); padding: 0.25rem 0.65rem; border-radius: 99px; font-size: 0.7rem; font-weight: 500; color: var(--steel); transition: border-color 0.2s; }
+    .tool-pill:hover { border-color: var(--green-lt); }
+    .featured-card .featured-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+    /* EXPERIENCE + EDUCATION */
+    #experience { background: var(--navy); }
+    #experience .section-title { color: #fff; }
+    #experience .section-desc { color: var(--muted); }
+    #experience .section-label { color: var(--green-lt); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: rgba(196,151,74,0.25); }
+    .timeline-item { position: relative; padding-bottom: 2.5rem; padding-left: 1.5rem; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -2.45rem; top: 0.4rem;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); border: 2px solid var(--navy);
+      box-shadow: 0 0 0 3px rgba(196,151,74,0.2);
+    }
+    .timeline-date { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .timeline-item h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: #fff; margin-bottom: 0.3rem; }
+    .org { font-size: 0.82rem; color: var(--green-lt); font-weight: 500; margin-bottom: 0.7rem; }
+    .timeline-item > p:not(.timeline-date):not(.org) { font-size: 0.875rem; color: var(--muted); line-height: 1.75; margin-bottom: 0.9rem; }
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .timeline-tag { background: rgba(45,122,79,0.15); border: 1px solid rgba(61,170,110,0.25); color: var(--green-lt); padding: 0.2rem 0.6rem; border-radius: 99px; font-size: 0.68rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Education cards inside timeline */
+    .edu-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 0.5rem; }
+    .edu-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(196,151,74,0.2);
+      border-radius: 4px; padding: 1rem 1.2rem;
+    }
+    .edu-card .edu-level { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .edu-card .edu-score { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #fff; }
+    .edu-card .edu-detail { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* CONTACT */
+    #contact { background: #fff; text-align: center; }
+    #contact .section-title { margin-bottom: 0.8rem; }
+    #contact .section-desc { margin: 0 auto 2.5rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .contact-link { display: flex; align-items: center; gap: 0.5rem; background: var(--offwhite); border: 1px solid var(--ice); padding: 0.75rem 1.5rem; border-radius: 3px; font-size: 0.875rem; font-weight: 500; color: var(--slate); text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+    .contact-link:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .contact-link svg { width: 16px; height: 16px; }
+
+    /* FOOTER */
+    footer { background: var(--navy); text-align: center; padding: 2rem 6%; font-size: 0.8rem; color: var(--muted); border-top: 1px solid rgba(196,151,74,0.15); }
+    footer span { color: var(--gold); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) { .featured-card .featured-inner { grid-template-columns: 1fr; gap: 0; } .edu-row { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } .hero-stats { gap: 1.5rem; flex-wrap: wrap; } .nav-links { display: none; } .featured-card { grid-column: auto; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">CS</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-leaf">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 10 C140 10 190 50 190 100 C190 150 150 190 100 190 C50 190 10 150 10 100 C10 60 30 20 100 10Z" fill="#3DAA6E" opacity="0.8"/>
+        <path d="M100 10 L100 190" stroke="#2D7A4F" stroke-width="2"/>
+        <path d="M100 60 C120 55 150 65 165 80" stroke="#2D7A4F" stroke-width="1.5"/>
+        <path d="M100 90 C118 85 148 92 160 105" stroke="#2D7A4F" stroke-width="1.5"/>
+        <path d="M100 120 C115 116 140 122 150 133" stroke="#2D7A4F" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">B.Tech CSE Graduate · Data &amp; Research Analyst</p>
+      <h1>Chhavi<br/><span>Singh</span></h1>
+      <p class="hero-sub">
+        Fresh B.Tech CSE graduate with an internship background and a strong foundation
+        in data analysis and research. Eager to learn, grow, and contribute to meaningful
+        work from day one.
+      </p>
+      <div class="hero-badges">
+        <span class="hero-badge">Python</span>
+        <span class="hero-badge">Django</span>
+        <span class="hero-badge">Data Analysis</span>
+        <span class="hero-badge">Policy Research</span>
+        <span class="hero-badge">GHG Modelling</span>
+        <span class="hero-badge">Power BI</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <span class="stat-num">7.74</span>
+          <span class="stat-label">B.Tech CGPA</span>
+        </div>
+        <div>
+          <span class="stat-num">5</span>
+          <span class="stat-label">Projects Built</span>
+        </div>
+        <div>
+          <span class="stat-num">3</span>
+          <span class="stat-label">Month Internship</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Built to Analyse. Driven to Contribute.</h2>
+        <p>
+          I'm Chhavi Singh — a fresh B.Tech CSE graduate with hands-on technical
+          training and a growing passion for climate policy and energy research. I bridge
+          the technical and the analytical: I can build the tool that cleans the data
+          <em>and</em> write the policy brief that makes it actionable.
+        </p>
+        <p>
+          My interest in sustainability is real — not a buzzword. I've spent time
+          studying India's NDC commitments, the PM Surya Ghar Yojana scheme, and
+          state-level renewable energy gaps. I bring that curiosity into every project.
+        </p>
+        <p>
+          I'm seeking my first full-time role where I can support research and advisory
+          work, contribute to technical reports and policy frameworks, and grow into a
+          well-rounded research consultant.
+        </p>
+      </div>
+      <div class="skills-section">
+        <p class="section-label" style="margin-bottom:1.2rem;">Skills</p>
+
+        <div class="skills-category">
+          <div class="skills-category-label">Technical Skills</div>
+          <div class="skills-grid">
+            <div class="skill-tag green">Python &amp; Pandas</div>
+            <div class="skill-tag green">Django Framework</div>
+            <div class="skill-tag green">REST APIs</div>
+            <div class="skill-tag green">PostgreSQL / SQL</div>
+            <div class="skill-tag">Data Visualisation</div>
+            <div class="skill-tag">Power BI / Excel</div>
+            <div class="skill-tag">Matplotlib</div>
+            <div class="skill-tag">GHG / Emissions Data</div>
+          </div>
+        </div>
+
+        <div class="skills-category" style="margin-top:1.2rem;">
+          <div class="skills-category-label">Professional Skills</div>
+          <div class="skills-grid">
+            <div class="skill-tag">Policy Research</div>
+            <div class="skill-tag">Report Writing</div>
+            <div class="skill-tag">Data Analysis</div>
+            <div class="skill-tag">Research Design</div>
+            <div class="skill-tag">MS Office Suite</div>
+            <div class="skill-tag">Stakeholder Reports</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-desc">
+      Five projects built during my internship training and self-study — spanning Python
+      web development, climate data analytics, energy policy research, and sustainability
+      consulting. Each one demonstrates skills relevant to a Research Analyst role.
+    </p>
+    <div class="projects-grid">
+
+      <!-- PROJECT 1 -->
+      <div class="project-card featured-card">
+        <span class="project-num">01</span>
+        <div class="featured-inner">
+          <div class="featured-left">
+            <div class="project-card-header">
+              <span class="project-badge badge-fullstack">Full-Stack · Django</span>
+            </div>
+            <p class="project-tag">Django · Python · News API · PostgreSQL</p>
+            <h3>NewsPulse — Climate &amp; Energy News Aggregator</h3>
+            <p class="proj-desc">
+              A Django web application that fetches, categorises, and displays live news
+              across climate policy, energy, and sustainability topics. Includes user
+              authentication, topic filters (Energy / Climate / Policy / ESG), bookmark
+              saving, and keyword search powered by NewsAPI.org.
+            </p>
+          </div>
+          <div class="featured-right">
+            <p style="font-size:0.85rem; color:#4A6680; line-height:1.75; margin-bottom:1.2rem;">
+              <strong style="color:var(--navy);">What I learned:</strong><br/>
+              Built end-to-end with Django — from database models and REST API integration
+              to user authentication and a responsive Bootstrap 5 UI. Strengthened my
+              understanding of how real-world web apps consume and organise external data.
+            </p>
+            <p style="font-size:0.85rem; color:#4A6680; line-height:1.75; margin-bottom:1.4rem;">
+              Key screens: Dashboard with topic cards · Article detail view · Bookmark list ·
+              Admin panel for category management.
+            </p>
+            <div class="project-tools">
+              <span class="tool-pill">Django</span>
+              <span class="tool-pill">Python</span>
+              <span class="tool-pill">PostgreSQL</span>
+              <span class="tool-pill">REST API</span>
+              <span class="tool-pill">Bootstrap 5</span>
+              <span class="tool-pill">GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="project-card">
+        <span class="project-num">02</span>
+        <div class="project-card-header">
+          <span class="project-badge badge-data">Data Analytics</span>
+        </div>
+        <p class="project-tag">Python · Pandas · Power BI · MNRE Data</p>
+        <h3>India Energy Transition Dashboard</h3>
+        <p>
+          An interactive Power BI dashboard analysing India's renewable energy mix from
+          2015–2024 — tracking solar &amp; wind capacity additions, state-level performance
+          rankings, coal phase-down progress, and NDC target benchmarks. Raw data sourced
+          from MNRE, CEA, and IEA open portals, cleaned and reshaped using Pandas.
+          Produced a 4-page visual policy brief as output.
+        </p>
+        <div class="project-tools">
+          <span class="tool-pill">Python</span>
+          <span class="tool-pill">Pandas</span>
+          <span class="tool-pill">Matplotlib</span>
+          <span class="tool-pill">Power BI</span>
+          <span class="tool-pill">Excel</span>
+          <span class="tool-pill">MNRE / IEA Data</span>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="project-card">
+        <span class="project-num">03</span>
+        <div class="project-card-header">
+          <span class="project-badge badge-data">Data Analytics</span>
+        </div>
+        <p class="project-tag">Python · Excel · Emissions Modelling · GHG Protocol</p>
+        <h3>Sector-wise GHG Emissions Calculator</h3>
+        <p>
+          A Python-based greenhouse gas emissions benchmarking tool for Indian industries
+          (power, transport, industry, buildings). Calculates Scope 1 &amp; 2 emissions,
+          benchmarks against national sector averages, and models two decarbonisation
+          scenarios. Output: an Excel model and a 10-page mock policy brief for
+          state-level planners.
+        </p>
+        <div class="project-tools">
+          <span class="tool-pill">Python</span>
+          <span class="tool-pill">Excel Modelling</span>
+          <span class="tool-pill">GHG Protocol</span>
+          <span class="tool-pill">Matplotlib</span>
+          <span class="tool-pill">Scenario Analysis</span>
+          <span class="tool-pill">Policy Writing</span>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 -->
+      <div class="project-card">
+        <span class="project-num">04</span>
+        <div class="project-card-header">
+          <span class="project-badge badge-policy">Policy Research</span>
+        </div>
+        <p class="project-tag">Research · Regulatory Review · White Paper</p>
+        <h3>India State Climate Policy Gap Analysis</h3>
+        <p>
+          A comparative regulatory review of climate and energy policies across 5 Indian
+          states (UP, Maharashtra, Rajasthan, Karnataka, Gujarat) — mapping current
+          legislation against India's national NDC targets. Produced a structured 15-page
+          white paper with a gap matrix, priority recommendations, and an implementation
+          roadmap for each state.
+        </p>
+        <div class="project-tools">
+          <span class="tool-pill">Policy Analysis</span>
+          <span class="tool-pill">Regulatory Review</span>
+          <span class="tool-pill">Excel Matrix</span>
+          <span class="tool-pill">White Paper</span>
+          <span class="tool-pill">PowerPoint</span>
+          <span class="tool-pill">NITI Aayog Data</span>
+        </div>
+      </div>
+
+      <!-- PROJECT 5 -->
+      <div class="project-card">
+        <span class="project-num">05</span>
+        <div class="project-card-header">
+          <span class="project-badge badge-policy">Sustainability Consulting</span>
+        </div>
+        <p class="project-tag">Consulting · Cost-Benefit · Stakeholder Report</p>
+        <h3>Rooftop Solar Feasibility Study — UP Municipal Utilities</h3>
+        <p>
+          Assessed rooftop solar feasibility for 3 municipal utilities in Uttar Pradesh
+          under the PM Surya Ghar Yojana scheme. Delivered a stakeholder-ready 20-page
+          consultant report covering cost-benefit analysis, regulatory barriers, subsidy
+          mapping, and a phased implementation roadmap.
+        </p>
+        <div class="project-tools">
+          <span class="tool-pill">Excel (IRR / NPV)</span>
+          <span class="tool-pill">Cost-Benefit Analysis</span>
+          <span class="tool-pill">Scheme Research</span>
+          <span class="tool-pill">Roadmap Planning</span>
+          <span class="tool-pill">Report Writing</span>
+          <span class="tool-pill">PowerPoint</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE & EDUCATION -->
+  <section id="experience">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">Experience &amp; Education</h2>
+    <p class="section-desc">Hands-on internship training and a strong academic foundation — ready to contribute from day one.</p>
+    <div class="timeline">
+
+      <!-- INTERNSHIP -->
+      <div class="timeline-item">
+        <p class="timeline-date">2025 · 3 Months</p>
+        <h3>Python Full Stack Intern</h3>
+        <p class="org">QSpider Training Institute</p>
+        <p>
+          Completed a structured 3-month Data &amp; Research Analyst programme covering Django web
+          development, REST API integration, PostgreSQL database design, Python scripting,
+          and data handling. Built end-to-end web projects and data pipelines directly
+          applicable to research tool development and automated data collection workflows.
+        </p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Django</span>
+          <span class="timeline-tag">Python</span>
+          <span class="timeline-tag">PostgreSQL</span>
+          <span class="timeline-tag">REST APIs</span>
+          <span class="timeline-tag">Data Pipelines</span>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="timeline-item">
+        <p class="timeline-date">Education</p>
+        <h3>Academic Qualifications</h3>
+        <div class="edu-row">
+          <div class="edu-card">
+            <div class="edu-level">Class 10 · CBSE</div>
+            <div class="edu-score">92.4%</div>
+            <div class="edu-detail">Central Board of Secondary Education</div>
+          </div>
+          <div class="edu-card">
+            <div class="edu-level">Class 12 · CBSE</div>
+            <div class="edu-score">94.2%</div>
+            <div class="edu-detail">Central Board of Secondary Education</div>
+          </div>
+          <div class="edu-card">
+            <div class="edu-level">B.Tech CSE · 2021–25</div>
+            <div class="edu-score">7.74</div>
+            <div class="edu-detail">CGPA · Computer Science &amp; Engineering</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's Work Together</h2>
+    <p class="section-desc">
+      Open to full-time Research Analyst roles, junior consulting positions, and
+      research collaborations in climate, energy, and sustainability policy.
+      Reach out through any of the channels below.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:mailchhavi2004@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        mailchhavi2004@gmail.com
+      </a>
+      <a href="tel:+919634103106" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.4 2 2 0 0 1 3.05 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.16a16 16 0 0 0 5.75 5.75l1.28-1.28a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +91 9634103106
+      </a>
+      <a href="https://github.com/Chhavisingh-dw" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        Chhavisingh-dw
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Designed &amp; built by <span>Chhavi Singh</span> · B.Tech CSE · Data &amp; Research Analyst</p>
+  </footer>
+
+</body>
+</html>
