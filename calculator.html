@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHG Emissions Calculator</title>
+    
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: Arial, sans-serif;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, #0a2a1a, #1a4a2a, #0d3320);
+                overflow-y:auto;
+                position: relative;
+            }
+            /* Floating leaves */
+            .leaf {
+                position: fixed;
+                font-size: 30px;
+                animation: fall linear infinite;
+                opacity: 0.7;
+                z-index: 0;
+            }
+            @keyframes fall {
+                0% { transform: translateY(-100px) rotate(0deg); opacity: 0.8; }
+                100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+            }
+            .leaf:nth-child(1)  { left: 5%;  animation-duration: 8s;  animation-delay: 0s;   font-size: 25px; }
+            .leaf:nth-child(2)  { left: 15%; animation-duration: 12s; animation-delay: 2s;   font-size: 35px; }
+            .leaf:nth-child(3)  { left: 25%; animation-duration: 9s;  animation-delay: 4s;   font-size: 20px; }
+            .leaf:nth-child(4)  { left: 35%; animation-duration: 11s; animation-delay: 1s;   font-size: 30px; }
+            .leaf:nth-child(5)  { left: 45%; animation-duration: 10s; animation-delay: 3s;   font-size: 28px; }
+            .leaf:nth-child(6)  { left: 55%; animation-duration: 13s; animation-delay: 5s;   font-size: 22px; }
+            .leaf:nth-child(7)  { left: 65%; animation-duration: 8s;  animation-delay: 2s;   font-size: 32px; }
+            .leaf:nth-child(8)  { left: 75%; animation-duration: 11s; animation-delay: 6s;   font-size: 26px; }
+            .leaf:nth-child(9)  { left: 85%; animation-duration: 9s;  animation-delay: 1s;   font-size: 24px; }
+            .leaf:nth-child(10) { left: 92%; animation-duration: 12s; animation-delay: 4s;   font-size: 30px; }
+        
+            .container {
+                background: rgba(28, 46, 66, 0.92);
+                padding: 40px;
+                border-radius: 15px;
+                width: 500px;
+                border: 1px solid #2D7A4F;
+                position: relative;
+                z-index: 1;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            }
+            h1 { color: #C4974A; text-align: center; margin-bottom: 10px; font-size: 24px; }
+            p.subtitle { color: #7A93A8; text-align: center; margin-bottom: 30px; font-size: 13px; }
+            label { color: #C8D8E8; display: block; margin-bottom: 8px; font-weight: bold; }
+            select, input {
+                width: 100%; padding: 12px; margin-bottom: 20px;
+                background: #0D1B2A; border: 1px solid #2D7A4F;
+                border-radius: 5px; color: white; font-size: 14px;
+            }
+            button {
+                width: 100%; padding: 14px;
+                background: #2D7A4F; color: white;
+                border: none; border-radius: 5px;
+                font-size: 16px; font-weight: bold; cursor: pointer;
+            }
+            button:hover { background: #3DAA6E; }
+            .result {
+                margin-top: 30px; background: #0D1B2A;
+                border-radius: 8px; padding: 25px;
+                border: 1px solid #C4974A;
+            }
+            .result h2 { color: #C4974A; margin-bottom: 20px; text-align: center; }
+            .result-row {
+                display: flex; justify-content: space-between;
+                padding: 10px 0; border-bottom: 1px solid #1C2E42; color: #C8D8E8;
+            }
+            .result-row span:last-child { color: #3DAA6E; font-weight: bold; }
+            .total { margin-top: 15px; text-align: center; font-size: 22px; color: #C4974A; font-weight: bold; }
+        </style>
+    
+</head>
+<body>
+    <div class="leaf">🍃</div>
+<div class="leaf">🌿</div>
+<div class="leaf">🍃</div>
+<div class="leaf">🌱</div>
+<div class="leaf">🍃</div>
+<div class="leaf">🌿</div>
+<div class="leaf">🍃</div>
+<div class="leaf">🌱</div>
+<div class="leaf">🍃</div>
+<div class="leaf">🌿</div>
+    <div class="container">
+        <h1>🌱 GHG Emissions Calculator</h1>
+        <p class="subtitle">India Sector-wise Emissions — GHG Protocol</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label>Select Sector:</label>
+            <select name="sector">
+                <option value="Power">Power</option>
+                <option value="Transport">Transport</option>
+                <option value="Industry">Industry</option>
+                <option value="Buildings">Buildings</option>
+            </select>
+
+            <label>Activity Units:</label>
+            <input type="number" name="units" 
+                   placeholder="Enter activity units" 
+                   required>
+
+            <button type="submit">Calculate Emissions</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h2>Emissions Report — {{ result.sector }}</h2>
+            <div class="result-row">
+                <span>Activity Units</span>
+                <span>{{ result.units }}</span>
+            </div>
+            <div class="result-row">
+                <span>Scope 1 Emissions</span>
+                <span>{{ result.scope1 }} tCO2</span>
+            </div>
+            <div class="result-row">
+                <span>Scope 2 Emissions</span>
+                <span>{{ result.scope2 }} tCO2</span>
+            </div>
+            <div class="total">
+                Total: {{ result.total }} tCO2
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
